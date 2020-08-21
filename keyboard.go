@@ -8,6 +8,8 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
+// TODO - store a global sequence here and move through it with each keypress
+
 func main() {
 	if err := keyboard.Open(); err != nil {
 		panic(err)
@@ -25,25 +27,29 @@ func main() {
 		fmt.Printf("You pressed: rune %q, key %X\r\n", char, key)
 		if key == keyboard.KeyEsc {
 			break
-		} else if key == keyboard.KeyEnter {
-
-			resp, err := http.Get("http://192.168.86.181:1880/hello")
-			if err != nil {
-				panic(err)
+		} else {
+			if key == keyboard.KeyEnter {
+				jackpot()
 			}
-			defer resp.Body.Close()
-
-			fmt.Println("Response status:", resp.Status)
-
-			scanner := bufio.NewScanner(resp.Body)
-			for i := 0; scanner.Scan() && i < 5; i++ {
-				fmt.Println(scanner.Text())
-			}
-
-			if err := scanner.Err(); err != nil {
-				panic(err)
-			}
-
 		}
+	}
+}
+
+func jackpot() {
+	resp, err := http.Get("http://192.168.86.181:1880/hello")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("Response status:", resp.Status)
+
+	scanner := bufio.NewScanner(resp.Body)
+	for i := 0; scanner.Scan() && i < 5; i++ {
+		fmt.Println(scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		panic(err)
 	}
 }
