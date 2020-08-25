@@ -8,9 +8,12 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-// TODO - store a global sequence here and move through it with each keypress
+// TODO - handle an "enter keypress to submit"
 
 func main() {
+	seq := "123"
+	position := 0
+
 	if err := keyboard.Open(); err != nil {
 		panic(err)
 	}
@@ -28,8 +31,11 @@ func main() {
 		if key == keyboard.KeyEsc {
 			break
 		} else {
-			if key == keyboard.KeyEnter {
-				jackpot()
+			if seq[position:position+1] == string(char) {
+				position++
+				if position == len(seq) {
+					jackpot()
+				}
 			}
 		}
 	}
