@@ -8,11 +8,9 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-// TODO - handle an "enter keypress to submit"
-
 func main() {
-	seq := "123"
-	position := 0
+	secret := "1234"
+	attempt := ""
 
 	if err := keyboard.Open(); err != nil {
 		panic(err)
@@ -31,11 +29,15 @@ func main() {
 		if key == keyboard.KeyEsc {
 			break
 		} else {
-			if seq[position:position+1] == string(char) {
-				position++
-				if position == len(seq) {
+			if key == keyboard.KeyEnter {
+				if attempt == secret {
 					jackpot()
+				} else {
+					fmt.Println("Nope, try again!")
+					attempt = ""
 				}
+			} else {
+				attempt += string(char)
 			}
 		}
 	}
