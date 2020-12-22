@@ -15,3 +15,17 @@ git clone https://github.com/projectrube/passcode
 ## Running
 
 You can either run the application directly with `go run passcode.go` or build it first to create the binary with `go build`.
+
+## Game & Challenge Ideas
+
+Below are some ideas for using this rube...
+
+### Treasure Map
+
+This challenge uses `stages.go` which can be run with `go run stages.go`.
+
+- Welcome to the treasure hunt 🎁
+- To crack the code, you must find three clues scattered around the house 🏡
+- Each clue will contain a secret 3 digit code (more on that in a moment) and the details of the next clue 🕵️‍♀️
+- Type each 3 digit code into the keypad. If it's correct, you'll see a success message 🎉
+- The last one will give you give you the location of the treasure 🏆
